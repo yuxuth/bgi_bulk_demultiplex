@@ -2,12 +2,11 @@ import gzip
 from argparse import ArgumentParser
 
 ## update the fastq 
-def update_fastq(r1, out_r1 ): ## process two files
+def update_fastq(r1, out_r1 ): 
 
 
     f_r1 = gzip.open(r1, 'rt')
     f_out_r1 = open(out_r1, 'w')
-
 
     while True:
         cur_r1_name = f_r1.readline()
@@ -17,7 +16,7 @@ def update_fastq(r1, out_r1 ): ## process two files
 
         if cur_r1_name == "" : break
 
-        cur_r1_read = cur_r1_read[:100]+cur_r1_read[110:118]
+        cur_r1_read = cur_r1_read[:100]+cur_r1_read[110:118] # modify based on library structure 
         cur_r1_qual = cur_r1_qual[:100]+cur_r1_qual[110:118]
         cur_r1_name = cur_r1_name.replace("/2","/1")
         f_out_r1.write(cur_r1_name)
@@ -28,14 +27,11 @@ def update_fastq(r1, out_r1 ): ## process two files
     f_out_r1.close()
 
 def main():
-    parser = ArgumentParser(description='provide fastq and new files') ## add parser
+    parser = ArgumentParser(description='provide fastq and new files')
     parser.add_argument('-r1', help='r1', required=True)
-    # parser.add_argument('-r2',  help='r2', required=True)
     parser.add_argument('-o',  help='file_name', required=True)
     options = parser.parse_args()
     r1 = options.r1
-    #FASTQ_R2 = options.r2 ## assume all file from BGI
-    # FASTQ_R2 = FASTQ_R1.replace('_1.fq.gz','_2.fq.gz')
     out_r1 = options.o
 
     update_fastq(r1, out_r1)
