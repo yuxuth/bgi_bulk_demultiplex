@@ -1,3 +1,4 @@
 ### bgi_bulk_demultiplex
 
-extract the i5 and i5 part information then, using cutadaptor for test
+1.  use modify_fq.py to trim reads. extract the P5/P7 index for demultiplex.
+2.  use cutadaptor to demultiplex the reads into different samples.
